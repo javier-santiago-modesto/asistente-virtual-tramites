@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pago en línea · Pasarela de pruebas</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2714%27 fill=%27%231b2438%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/tema.css">
+<link rel="stylesheet" href="/static/preview.css">
+<style>
+ body{display:grid;place-items:center;align-content:center;gap:1.4rem;padding:1rem}
+ .caja{width:min(880px,100%);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);background:var(--superficie);border-radius:26px;overflow:hidden;box-shadow:0 30px 70px -25px rgba(35,33,107,.5);border:1px solid var(--linea)}
+ .caja__res{background:linear-gradient(165deg,#141b2b,#26324d);color:#fff;padding:2rem;display:flex;flex-direction:column;gap:1.1rem}
+ .caja__res .prueba{align-self:flex-start;background:var(--sol);color:#1b2438;font:700 .8rem var(--disp);padding:.25rem .7rem;border-radius:99px}
+ .caja__res h1{font:800 1.6rem/1.1 var(--disp);letter-spacing:-.02em}
+ .caja__res dl{display:grid;gap:.6rem;font-size:.95rem}
+ .caja__res dl div{display:flex;justify-content:space-between;gap:1rem}
+ .caja__res dt{opacity:.75}.caja__res dd{font-weight:600;text-align:right}
+ .caja__res .monto{margin-top:auto;font:800 2.8rem/1 var(--disp);letter-spacing:-.03em}
+ .caja__res .monto small{display:block;font:500 .9rem var(--cuerpo);opacity:.75;letter-spacing:0;margin-bottom:.3rem}
+ form{padding:2rem;display:grid;gap:1rem;align-content:start}
+ form h2{font:800 1.4rem var(--disp);color:var(--tinta)}
+ label{display:grid;gap:.3rem;font-size:.9rem;font-weight:600}
+ form{min-width:0}
+ input{width:100%;min-width:0;padding:.8rem .9rem;border-radius:12px;border:2px solid var(--linea);background:var(--fondo);font-size:1.05rem;font-weight:500}
+ input:focus{outline:none;border-color:var(--tinta-2);box-shadow:0 0 0 4px color-mix(in srgb,var(--tinta-2) 20%,transparent)}
+ .dos{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+ .ayuda{font-size:.82rem;color:var(--suave);background:var(--fondo);padding:.6rem .8rem;border-radius:10px}
+ .err{color:#a1403f;font-weight:600;font-size:.92rem}
+ .exito{display:none;text-align:center;padding:3rem 2rem;gap:1rem}
+ .exito.ver{display:grid;place-items:center}
+ .exito .chk{width:84px;height:84px;border-radius:50%;background:var(--menta);display:grid;place-items:center;animation:pop .5s cubic-bezier(.2,1.5,.4,1)}
+ @keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+ .exito h2{font:800 1.6rem var(--disp);color:var(--tinta)}
+ @media(max-width:760px){.caja{grid-template-columns:1fr}.caja__res .monto{margin-top:.5rem}}
+</style>
+</head>
+<body>
+<a class="inst" href="/" aria-label="Universidad Inteligente, volver al asistente"><svg class="inst__logo" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 3 6 9v14c0 11 7.5 18.5 18 22 10.5-3.500 18-11 18-22V9z"/><path d="M24 17v18M24 17c-3-2-7-2.500-11-2v15c4-.5 8 0 11 2 3-2 7-2.500 11-2V15c-4-.5-8 0-11 2z" stroke-width="1.700"/><circle cx="24" cy="10.500" r="1.800" fill="currentColor" stroke="none"/><circle cx="14.500" cy="20" r="1.200" fill="currentColor" stroke="none"/><circle cx="33.500" cy="20" r="1.200" fill="currentColor" stroke="none"/></svg><span class="inst__nombre">Universidad Inteligente</span><span class="inst__sep" aria-hidden="true"></span><span class="inst__portal">Portal del Estudiante</span></a>
+<a class="marca" href="/" aria-label="Volver al asistente"><span class="marca__sello" aria-hidden="true"></span>Asistente Virtual de Trámites Académicos</a>
+<main class="caja" id="caja">
+  <section class="caja__res">
+    <span class="prueba">Entorno de pruebas · no se cobra dinero real</span>
+    <h1 id="rTramite">Cargando orden…</h1>
+    <dl id="rDatos"></dl>
+    <p class="monto"><small>Total a pagar</small><span id="rMonto">—</span></p>
+  </section>
+  <form id="frm" novalidate hidden>
+    <h2>Paga con tu tarjeta</h2>
+    <label>Nombre del titular<input id="titular" autocomplete="cc-name" placeholder="Como aparece en la tarjeta" required></label>
+    <label>Número de tarjeta<input id="numero" inputmode="numeric" autocomplete="cc-number" placeholder="4242 4242 4242 4242" maxlength="23" required></label>
+    <div class="dos">
+      <label>Vence (MM/AA)<input id="vence" inputmode="numeric" autocomplete="cc-exp" placeholder="12/30" maxlength="5" required></label>
+      <label>CVV<input id="cvv" inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="4" required></label>
+    </div>
+    <p class="err" id="err" role="alert" hidden></p>
+    <button class="btn" id="btnPagar" type="submit">Pagar</button>
+    <p class="ayuda">Tarjetas de prueba: <b>4242 4242 4242 4242</b> (aprobada) · <b>4000 0000 0000 0002</b> (rechazada). Usa cualquier fecha futura y 3 dígitos de CVV.</p>
+  </form>
+  <section class="exito" id="exito"><div class="chk"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+    <h2>Pago aprobado</h2><p id="exMsg" class="nota">Te llevamos de vuelta a tu documento…</p><a class="btn btn--2" id="exLink" href="#">Volver a mi trámite</a></section>
+</main>
+<script src="/static/pasarela.js"></script>
+</body>
+</html>

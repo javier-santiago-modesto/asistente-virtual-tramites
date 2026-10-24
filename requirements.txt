@@ -1,0 +1,12 @@
+fastapi==0.143.3
+uvicorn[standard]==0.54.0
+pydantic-settings==2.16.0
+pandas==3.0.6
+langchain==1.4.6
+langchain-openai==1.7.2
+langgraph==1.2.16
+langsmith==0.14.11
+llama-index-core==0.14.25
+llama-index-embeddings-openai==0.7.0
+llama-index-readers-web==0.7.0
+llama-index-vector-stores-elasticsearch==0.7.0

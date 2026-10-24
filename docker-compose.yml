@@ -1,0 +1,10 @@
+services:
+  asistente:
+    build: .
+    image: asistente-tramites
+    ports:
+      - "${HOST_PORT:-8082}:8080"   # puerto en tu PC : puerto del contenedor
+    env_file: .env            # claves y datos de Elasticsearch (no se copian a la imagen)
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # para alcanzar un Elasticsearch que corre en tu PC
+    restart: unless-stopped

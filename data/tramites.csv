@@ -1,0 +1,4 @@
+IDTRAMITE,NOMBRETRAMITE,DESCRIPCIONTRAMITE,PRERIODOTRAMITE,PRECIOTRAMITE,TIEMPOENTREGA
+T000001,Certificado de Estudios,Documento oficial que certifica los cursos y calificaciones obtenidas por el alumno durante su formacion academica,2026,80,INMEDIATA
+T000002,Constancia de Matricula,Documento que acredita que el alumno se encuentra matriculado en el periodo academico vigente,2026,60,INMEDIATA
+T000003,Bachiller,Documento que certifica la obtencion del grado academico de bachiller,2026,1500,8 DIAS HABILES

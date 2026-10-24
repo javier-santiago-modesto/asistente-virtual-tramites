@@ -1,0 +1,27 @@
+/* Tema sobrio: marino profundo, grises fríos y blanco roto. Tipografía geométrica y ligera. */
+:root{
+  --tinta:#1b2438; --tinta-2:#46546f; --acento:#1b2438; --acento-t:#fff; --bronce:#8f7a52;
+  --sello:#1b2438; --sol:#d9d4c7; --menta:#4a7c6b;
+  --fondo:#f6f6f7; --superficie:#fff; --texto:#1b2438; --suave:#6a7184; --linea:#e1e3e8;
+  --disp:'Josefin Sans','Jost',system-ui,sans-serif;
+  --cuerpo:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --sombra:0 1px 2px rgba(20,27,43,.06),0 12px 32px -16px rgba(20,27,43,.22);
+}
+@media (prefers-color-scheme:dark){:root{
+  --tinta:#e8ebf3; --tinta-2:#a7b2c9; --acento:#e8ebf3; --acento-t:#141b2b; --sello:#e8ebf3;
+  --fondo:#0e131f; --superficie:#171e2e; --texto:#e8ebf3; --suave:#9aa3b8; --linea:#28324a;
+  --sombra:0 1px 2px rgba(0,0,0,.4),0 12px 32px -16px rgba(0,0,0,.6);
+}}
+
+/* ---------- cabecera institucional: logotipo + universidad | portal ---------- */
+.inst{display:flex;align-items:center;gap:.9rem;color:var(--tinta);text-decoration:none;min-width:0}
+.inst__logo{flex:none;width:2.6rem;height:2.6rem;color:var(--tinta)}
+.inst__nombre{font:700 1rem/1.1 var(--disp);letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}
+.inst__sep{flex:none;width:1px;align-self:stretch;min-height:1.8rem;background:var(--tinta-2);opacity:.45}
+.inst__portal{font:400 .82rem/1.2 var(--disp);letter-spacing:.2em;text-transform:uppercase;color:var(--suave)}
+.cabecera{display:flex;align-items:center;padding:.8rem clamp(1.25rem,4vw,4rem);max-width:1280px;margin:0 auto;width:100%}
+@media(max-width:640px){
+  .inst{gap:.6rem}.inst__logo{width:2.1rem;height:2.1rem}
+  .inst__nombre{font-size:.78rem;letter-spacing:.1em;white-space:normal}.inst__portal{font-size:.66rem;letter-spacing:.12em}
+}

@@ -1,0 +1,203 @@
+*{box-sizing:border-box;margin:0}
+body{font:16px/1.5 var(--cuerpo);background:var(--fondo);color:var(--texto);-webkit-font-smoothing:antialiased;min-height:100dvh}
+button,input{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid var(--tinta-2);outline-offset:2px;border-radius:8px}
+[hidden]{display:none!important}
+a{color:inherit}
+
+.marca{display:flex;align-items:center;gap:.6rem;font:700 .88rem/1.3 var(--disp);color:var(--tinta);text-decoration:none;letter-spacing:.14em;text-transform:uppercase;line-height:1.3}
+.marca__sello{flex:none;width:1.3rem;height:1.3rem;border-radius:50%;background:var(--acento);position:relative}
+.marca__sello::after{content:"";position:absolute;inset:.33rem;border:1.5px solid var(--acento-t);border-radius:50%}
+
+.top{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem clamp(1rem,3vw,2rem);background:var(--superficie);border-bottom:1px solid var(--linea);position:sticky;top:0;z-index:5}
+.pasos{display:flex;gap:.3rem;list-style:none;padding:0;counter-reset:p;font-size:.88rem;color:var(--suave);flex-wrap:wrap;justify-content:flex-end}
+.pasos li{counter-increment:p;display:flex;align-items:center;gap:.4rem;padding:.25rem .7rem .25rem .3rem;border-radius:99px}
+.pasos li::before{content:counter(p);width:1.5rem;height:1.5rem;border-radius:50%;display:grid;place-items:center;font:700 .78rem var(--disp);background:var(--linea);color:var(--suave)}
+.pasos li.activo{background:color-mix(in srgb,var(--sello) 12%,transparent);color:var(--texto);font-weight:600}
+.pasos li.activo::before{background:var(--acento);color:var(--acento-t)}
+.pasos li.hecho::before{content:"✓";background:var(--menta);color:#fff}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:clamp(1rem,3vw,2.5rem);padding:clamp(1rem,3vw,2rem);max-width:1320px;margin:0 auto;align-items:start}
+.escenario{background:
+  radial-gradient(800px 380px at 50% 0,color-mix(in srgb,var(--tinta-2) 22%,transparent),transparent 70%),
+  linear-gradient(160deg,#26324d,#111826);border-radius:22px;padding:clamp(.8rem,3vw,2.2rem);min-height:60vh;display:grid;place-items:start center;box-shadow:var(--sombra)}
+.estado{color:#e6e7ff;padding:3rem 1rem;text-align:center;max-width:30rem;font-size:1.1rem}
+.estado b{display:block;font:700 1.5rem var(--disp);margin-bottom:.5rem}
+.estado a{color:var(--sol);font-weight:600}
+.doc-wrap{position:relative;box-shadow:0 24px 50px -22px rgba(20,27,43,.45);border-radius:3px;overflow:hidden;background:#fff}
+.doc-escala{transform-origin:top left;position:relative}
+.sin-copiar{user-select:none;-webkit-user-select:none}
+
+/* ---------- panel lateral ---------- */
+.panel{background:var(--superficie);border:1px solid var(--linea);border-radius:22px;padding:1.5rem;display:grid;gap:1rem;position:sticky;top:5.2rem;box-shadow:var(--sombra)}
+.panel__etq{font-size:.85rem;color:var(--suave)}
+.panel h1{font:700 1.7rem/1.1 var(--disp);letter-spacing:0;color:var(--tinta)}
+.panel__alumno{color:var(--suave);margin-top:-.4rem}
+.datos{display:grid;gap:.6rem;padding:.9rem 0;border-block:1px solid var(--linea)}
+.datos div{display:flex;justify-content:space-between;gap:1rem;font-size:.95rem}
+.datos dt{color:var(--suave)}.datos dd{font-weight:600;text-align:right}
+.precio{display:flex;justify-content:space-between;align-items:baseline}
+.precio span{color:var(--suave)}.precio b{font:700 2rem/1 var(--disp);letter-spacing:0;white-space:nowrap}
+.btn{display:block;width:100%;padding:1rem 1.2rem;border:0;border-radius:99px;background:var(--acento);color:var(--acento-t);font:600 .85rem var(--disp);letter-spacing:.2em;text-transform:uppercase;transition:opacity .15s}
+.btn:hover{opacity:.86}
+
+.btn[disabled]{opacity:.7;pointer-events:none}
+.btn--2{background:transparent;color:var(--tinta);border:1px solid var(--tinta-2);box-shadow:none}
+.btn--2:hover{background:var(--tinta);color:var(--acento-t);opacity:1}
+.nota{font-size:.88rem;color:var(--suave);margin-top:.4rem}
+.ok{display:grid;gap:.4rem;padding:1rem;border-radius:14px;background:color-mix(in srgb,var(--menta) 16%,transparent);border:1px solid color-mix(in srgb,var(--menta) 45%,transparent)}
+.ok b{font:700 1.05rem var(--disp)}
+.volver{font-size:.92rem;color:var(--suave);text-underline-offset:3px}
+
+/* ---------- ventana flotante ---------- */
+.dlg{border:0;border-radius:24px;padding:0;width:min(520px,calc(100vw - 2rem));background:var(--superficie);color:var(--texto);box-shadow:0 40px 80px -20px rgba(10,10,60,.6);margin:auto}
+.dlg[open]{animation:abre .22s cubic-bezier(.2,.9,.3,1.1)}
+.dlg::backdrop{background:rgba(15,16,60,.62);backdrop-filter:blur(4px)}
+@keyframes abre{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+.dlg__cerrar{position:absolute;top:.7rem;right:.8rem}
+.dlg__cerrar button{border:0;background:none;font-size:1.8rem;line-height:1;color:var(--suave);width:2.2rem;height:2.2rem;border-radius:50%}
+.dlg__cerrar button:hover{background:var(--linea)}
+.dlg__cuerpo{padding:1.7rem 1.7rem 1.5rem;display:grid;gap:1rem}
+.dlg h2{font:700 1.5rem/1.15 var(--disp);letter-spacing:0;color:var(--tinta);padding-right:2rem}
+.dlg__sub{color:var(--suave);margin-top:-.5rem}
+.resumen{display:grid;gap:.55rem;padding:1rem;border-radius:16px;background:var(--fondo)}
+.resumen div{display:flex;justify-content:space-between;gap:1rem;font-size:.95rem}
+.resumen dt{color:var(--suave)}.resumen dd{font-weight:600;text-align:right}
+.resumen .total{border-top:1px dashed var(--linea);padding-top:.7rem;margin-top:.2rem;align-items:baseline}
+.resumen .total dd{font:700 1.8rem/1 var(--disp)}
+.metodo{display:flex;gap:.9rem;align-items:flex-start;padding:1rem;border:2px solid var(--tinta-2);border-radius:16px;background:color-mix(in srgb,var(--tinta-2) 7%,transparent)}
+.metodo svg{flex:none;color:var(--tinta-2)}
+.metodo b{display:block;font:700 1rem var(--disp)}
+.metodo span{font-size:.88rem;color:var(--suave)}
+.dlg__acc{display:grid;gap:.6rem}
+.dlg .error{color:#a1403f;font-weight:600}
+@media (prefers-color-scheme:dark){.dlg .error{color:#e3a7a5}}
+
+/* =====================================================================
+   DOCUMENTOS (tamaño natural A4 a 96 dpi; el visor los escala a la pantalla)
+   ===================================================================== */
+.doc{position:relative;background:#fff;color:#1b1d3a;font-family:var(--cuerpo);text-align:left}
+.marca-agua{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;z-index:20;overflow:hidden}
+.marca-agua span{font:700 190px/1 var(--disp);letter-spacing:0;color:rgba(27,36,56,.10);-webkit-text-stroke:3px rgba(27,36,56,.26);transform:rotate(-32deg)}
+.d-dip .marca-agua span{font-size:230px}
+.pie-demo{font-size:10px;letter-spacing:.04em;color:#7b7e9e}
+
+/* ---------- CERTIFICADO DE ESTUDIOS (retrato, tablas) ---------- */
+.d-cert{width:794px;min-height:1123px;display:flex;flex-direction:column}
+.c-head{background:linear-gradient(120deg,#141b2b,#26324d);color:#fff;padding:34px 44px 30px;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;border-bottom:7px solid #1b2438}
+.c-head .uni{font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.8}
+.c-head h2{font:700 40px/1 var(--disp);letter-spacing:0;margin-top:6px}
+.c-head .cod{text-align:right;font-size:11px;opacity:.85;line-height:1.5}
+.c-head .cod b{display:block;font:700 14px var(--disp);letter-spacing:.04em;opacity:1}
+.c-alumno{margin:26px 44px 22px;padding:18px 22px;border:2px solid #1b2438;border-radius:12px;display:grid;grid-template-columns:2.3fr .9fr .9fr;gap:6px 24px;position:relative}
+.c-alumno::before{content:"Alumno";position:absolute;top:-11px;left:16px;background:#fff;padding:0 8px;font:700 12px var(--disp);color:#1b2438}
+.c-alumno small{display:block;font-size:11px;color:#6c6f93}
+.c-alumno b{font:700 16px/1.25 var(--disp)}
+.c-alumno .nombre b{font-size:18px;color:#1b2438}
+.c-periodo{margin:0 44px 24px;break-inside:avoid;page-break-inside:avoid}
+.c-pcab{display:flex;align-items:stretch;margin-bottom:0}
+.c-anio{background:#1b2438;color:#fff;font:700 30px/1 var(--disp);padding:11px 26px 11px 18px;clip-path:polygon(0 0,100% 0,calc(100% - 16px) 100%,0 100%);letter-spacing:0}
+.c-periodo:nth-of-type(even) .c-anio{background:#46546f}
+.c-pcab .lbl{flex:1;display:flex;align-items:center;padding-left:16px;font:600 14px var(--disp);color:#1b2438;background:#eceefc;margin-left:-12px;border-radius:0 8px 0 0}
+.c-pcab .prom{display:flex;align-items:center;gap:8px;padding:0 16px;background:#eceefc;border-radius:0 8px 0 0;font-size:12px;color:#5a5d86}
+.c-pcab .prom b{font:700 20px var(--disp);color:#1b2438}
+.c-tabla{width:100%;border-collapse:collapse;font-size:13.5px}
+.c-tabla thead th{background:#1b2438;color:#fff;text-align:left;font:600 11.5px var(--disp);letter-spacing:.08em;text-transform:uppercase;padding:9px 12px}
+.c-tabla th.nota,.c-tabla td.nota{text-align:center;width:78px}
+.c-tabla th.cond{width:116px}.c-tabla th.cod{width:92px}
+.c-tabla td{padding:7px 12px;border-bottom:1px solid #e6e8f6}
+.c-tabla tbody tr:nth-child(even) td{background:#f4f5fd}
+.c-tabla td.cod{font:500 12px ui-monospace,Consolas,monospace;color:#6c6f93}
+.c-tabla td.curso{font-weight:500}
+.pill{display:inline-block;min-width:46px;padding:3px 0;border-radius:8px;font:700 14px var(--disp);font-variant-numeric:tabular-nums;color:#fff;text-align:center}
+.n-a{background:#3f7a64}.n-b{background:#46546f}.n-c{background:#a07f3a}.n-d{background:#a1403f}
+.cond-t{font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.cond-t::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.cond-ok{color:#3f7a64}.cond-no{color:#a1403f}
+.c-tabla tfoot td{background:#1b2438!important;color:#fff;font:700 13px var(--disp);padding:9px 12px;border:0}
+.c-tabla tfoot td.nota{font-size:17px}
+.c-resumen{margin:4px 44px 24px;display:grid;grid-template-columns:repeat(3,1fr);background:linear-gradient(120deg,#141b2b,#26324d);border-radius:14px;color:#fff;overflow:hidden;break-inside:avoid}
+.c-resumen div{padding:18px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.18)}
+.c-resumen div:last-child{border:0;background:#1b2438}
+.c-resumen b{display:block;font:700 44px/1 var(--disp);letter-spacing:0}
+.c-resumen span{font-size:12px;opacity:.9}
+.c-pie{margin:auto 44px 0;padding:18px 0 30px;break-inside:avoid}
+.c-pie p.exp{font:400 14px/1.6 var(--serif);color:#3b3d5c;margin-bottom:26px}
+.firmas{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
+.firma{flex:1;text-align:center;font-size:12px;color:#44476b}
+.firma i{display:block;border-top:1.5px solid #1b2438;margin:0 10% 6px}
+.firma b{display:block;font:700 13px var(--disp);color:#1b2438}
+.sello-doc{width:92px;aspect-ratio:1;border-radius:50%;border:3px solid #1b2438;color:#1b2438;display:grid;place-items:center;text-align:center;font:700 11px/1.15 var(--disp);text-transform:uppercase;transform:rotate(-12deg);flex:none;box-shadow:inset 0 0 0 4px rgba(27,36,56,.08)}
+.verif{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:16px}
+.barras{display:flex;align-items:stretch;height:30px;gap:0}
+.barras i{display:block;background:#1b1d3a}
+
+/* ---------- CONSTANCIA DE MATRICULA (retrato, banda lateral) ---------- */
+.d-const{width:794px;height:1123px;display:grid;grid-template-columns:236px 1fr;overflow:hidden}
+.k-banda{background:linear-gradient(185deg,#1b2438 0%,#2a3550 48%,#1b2438 100%);color:#fff;padding:40px 26px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;overflow:hidden}
+.k-banda::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 2px,transparent 2px 14px)}
+.k-banda>*{position:relative;z-index:1}
+.k-anio{writing-mode:vertical-rl;transform:rotate(180deg);font:700 206px/.9 var(--disp);letter-spacing:0;color:transparent;-webkit-text-stroke:3px rgba(255,255,255,.92)}
+.k-banda small{font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-align:center;line-height:1.5;opacity:.95}
+.k-cuerpo{padding:52px 54px 40px 50px;display:flex;flex-direction:column}
+.k-cuerpo .uni{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#6c6f93}
+.k-cuerpo h2{font:700 50px/.98 var(--disp);letter-spacing:0;color:#1b2438;margin:12px 0 18px}
+.k-barra{width:84px;height:7px;border-radius:99px;background:#1b2438;margin-bottom:28px}
+.k-texto{font:400 21px/1.6 var(--serif);color:#2c2e4d}
+.k-nombre{display:inline;font:700 32px/1.35 var(--disp);color:#1b2438;letter-spacing:0;background:linear-gradient(transparent 62%,#e8dfc9 62% 92%,transparent 92%);padding:0 4px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.k-insignia{display:inline-flex;align-items:center;gap:12px;margin:22px 0 6px;padding:11px 24px 11px 14px;border:3px solid #3f7a64;border-radius:99px;color:#3f7a64;font:700 24px var(--disp);letter-spacing:.04em;transform:rotate(-2deg);background:rgba(15,143,107,.07)}
+.k-insignia svg{flex:none}
+.k-ficha{margin-top:26px;border-top:3px solid #1b2438}
+.k-ficha div{display:flex;align-items:baseline;gap:10px;padding:10px 0;border-bottom:1px solid #e1e3f2;font-size:15px}
+.k-ficha dt{color:#6c6f93;width:150px;flex:none}
+.k-ficha dd{font:700 16px var(--disp);color:#1b1d3a}
+.k-pie{margin-top:auto}
+.k-pie .firmas{margin-bottom:22px}
+
+/* ---------- DIPLOMA DE BACHILLER (apaisado, ornamental) ---------- */
+.d-dip{width:1123px;height:794px;background:radial-gradient(900px 600px at 50% 40%,#fdfcf9,#f4f1e8 78%,#e9e4d4);color:#1c2a5a;overflow:hidden}
+.d-dip::before{content:"";position:absolute;inset:16px;border:11px solid #1c2a5a;pointer-events:none}
+.d-dip::after{content:"";position:absolute;inset:38px;border:2px solid #8f7a52;box-shadow:inset 0 0 0 6px #f7eed3,inset 0 0 0 7px #8f7a52;pointer-events:none}
+.esq{position:absolute;width:92px;height:92px;z-index:2;color:#8f7a52}
+.esq--1{top:44px;left:44px}.esq--2{top:44px;right:44px;transform:scaleX(-1)}.esq--3{bottom:44px;left:44px;transform:scaleY(-1)}.esq--4{bottom:44px;right:44px;transform:scale(-1)}
+.dp{position:absolute;inset:0;padding:58px 130px 92px;display:flex;flex-direction:column;align-items:center;text-align:center;z-index:3}
+.dp .uni{font:700 17px var(--serif);font-family:'Cormorant Garamond',Georgia,serif;letter-spacing:.34em;text-transform:uppercase;color:#1c2a5a;margin-top:4px}
+.oro{background:linear-gradient(100deg,#6f5d3a 0%,#b9a67a 30%,#d8cba8 48%,#9a8456 66%,#6f5d3a 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dp h2{font:400 92px/1.05 'Pinyon Script','Snell Roundhand',cursive;margin:14px 0 6px}
+.dp .otorga{font:italic 500 21px 'Cormorant Garamond',Georgia,serif;letter-spacing:.06em;margin-top:12px;color:#4a4f7a}
+.dp .nombre{font:700 54px/1.1 'Cormorant Garamond',Georgia,serif;color:#1c2a5a;margin:20px 0 10px;border-bottom:2px solid #8f7a52;padding:0 34px 8px}
+.dp .por{font:500 19px/1.5 'Cormorant Garamond',Georgia,serif;color:#3a3f68;max-width:700px;margin-top:14px}
+.dp .grado{font:700 38px/1.1 'Cormorant Garamond',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;margin:22px 0 10px;display:flex;align-items:center;gap:20px}
+.dp .grado::before,.dp .grado::after{content:"";width:70px;height:2px;background:linear-gradient(90deg,transparent,#8f7a52)}
+.dp .grado::after{background:linear-gradient(270deg,transparent,#8f7a52)}
+.dp .fecha{font:italic 500 18px 'Cormorant Garamond',Georgia,serif;color:#4a4f7a;margin-top:8px}
+.dp-pie{margin-top:auto;width:100%;display:grid;grid-template-columns:1fr 150px 1fr;align-items:end;gap:28px}
+.dp-pie .firma i{border-color:#1c2a5a}
+.dp-pie .firma b{font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;color:#1c2a5a}
+.medalla{position:relative;width:128px;height:128px;margin:0 auto -4px}
+.medalla .disco{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 20deg,#6f5d3a,#c4b283,#8f7a52,#d8cba8,#6f5d3a,#b9a67a,#6f5d3a);box-shadow:0 6px 14px rgba(80,55,0,.35),inset 0 0 0 6px rgba(255,255,255,.25)}
+.medalla .disco::after{content:"";position:absolute;inset:14px;border-radius:50%;border:2px solid rgba(70,46,0,.55);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.5),transparent 60%)}
+.medalla svg{position:absolute;inset:34px;z-index:2;color:#5b3f06}
+.cinta{position:absolute;bottom:-26px;width:34px;height:52px;z-index:-1}
+.cinta--1{left:28px;background:#1c2a5a;transform:rotate(14deg);clip-path:polygon(0 0,100% 0,100% 100%,50% 82%,0 100%)}
+.cinta--2{right:28px;background:#7a2f3a;transform:rotate(-14deg);clip-path:polygon(0 0,100% 0,100% 100%,50% 82%,0 100%)}
+.dp .pie-demo{position:absolute;bottom:52px;left:0;right:0;text-align:center}
+
+/* ---------- responsive / impresión ---------- */
+@media (max-width:980px){
+  .layout{grid-template-columns:1fr}
+  .panel{position:static;order:-1}
+  .pasos li:not(.activo):not(.hecho){display:none}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media print{
+  body{background:#fff}
+  .top,.panel,.estado,.dlg{display:none!important}
+  .layout{display:block;padding:0;max-width:none}
+  .escenario{background:none;padding:0;box-shadow:none;border-radius:0;display:block}
+  .doc-wrap{box-shadow:none;width:auto!important;height:auto!important;overflow:visible}
+  .doc-escala{transform:none!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+@media(max-width:700px){.marca{font-size:.7rem;letter-spacing:.08em}}

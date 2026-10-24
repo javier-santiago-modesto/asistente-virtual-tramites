@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Asistente Virtual de Trámites Académicos</title>
+<meta name="description" content="Pide tu constancia, certificado o bachiller conversando. Sin colas ni formularios.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2714%27 fill=%27%231b2438%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%276%27 fill=%27none%27 stroke=%27white%27 stroke-width=%273%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/static/tema.css?v=5">
+<link rel="stylesheet" href="/static/app.css?v=6">
+</head>
+<body>
+
+<!-- ============ PANTALLA 1: ingreso ============ -->
+<header class="cabecera" id="cabecera"><div class="inst"><svg class="inst__logo" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 3 6 9v14c0 11 7.5 18.5 18 22 10.5-3.500 18-11 18-22V9z"/><path d="M24 17v18M24 17c-3-2-7-2.500-11-2v15c4-.5 8 0 11 2 3-2 7-2.500 11-2V15c-4-.5-8 0-11 2z" stroke-width="1.700"/><circle cx="24" cy="10.500" r="1.800" fill="currentColor" stroke="none"/><circle cx="14.500" cy="20" r="1.200" fill="currentColor" stroke="none"/><circle cx="33.500" cy="20" r="1.200" fill="currentColor" stroke="none"/></svg><span class="inst__nombre">Universidad Inteligente</span><span class="inst__sep" aria-hidden="true"></span><span class="inst__portal">Portal del Estudiante</span></div></header>
+<main id="entrada" class="entrada">
+  <section class="entrada__texto">
+    <p class="marca"><span class="marca__sello" aria-hidden="true"></span>Asistente Virtual de Trámites Académicos</p>
+    <h1><b>Tu trámite,</b> resuelto en una conversación.</h1>
+    <p class="entrada__sub">Constancia de matrícula, certificado de estudios o bachiller: cuéntame qué necesitas, reviso tus datos y te entrego el documento.</p>
+
+    <form id="formIngreso" class="ingreso" novalidate>
+      <label for="idalumo">Tu código de alumno</label>
+      <div class="ingreso__fila">
+        <input id="idalumo" name="idalumo" inputmode="text" autocomplete="off" autocapitalize="characters"
+               placeholder="N000456" maxlength="7" aria-describedby="ingresoError">
+        <button type="submit" id="btnIngreso">Empezar</button>
+      </div>
+      <p id="ingresoError" class="ingreso__error" role="alert" hidden></p>
+    </form>
+
+    <ul class="promesas">
+      <li><b>Inmediata</b> constancia y certificado</li>
+      <li><b>8 días hábiles</b> bachiller</li>
+      <li><b>24 h</b> disponible, sin colas</li>
+    </ul>
+  </section>
+
+  <section class="entrada__arte" aria-hidden="true">
+    <img class="hero" src="/static/hero.png?v=5" alt="" width="872" height="629">
+  </section>
+</main>
+
+<!-- ============ PANTALLA 2: chat ============ -->
+<div id="app" class="app" hidden>
+  <aside class="lateral" aria-label="Trámites disponibles">
+    <header class="perfil">
+      <div class="perfil__avatar" id="avatar" aria-hidden="true">?</div>
+      <div>
+        <p class="perfil__nombre" id="perfilNombre">—</p>
+        <p class="perfil__meta" id="perfilMeta"></p>
+      </div>
+    </header>
+    <h2 class="lateral__titulo">¿Qué necesitas hoy?</h2>
+    <div id="tramites" class="tramites"></div>
+    <button class="salir" id="btnSalir" type="button">Cambiar de alumno</button>
+  </aside>
+
+  <section class="chat" aria-label="Conversación">
+
+    <div id="mensajes" class="mensajes" role="log" aria-live="polite"></div>
+
+    <div class="pie">
+      <div id="sugerencias" class="sugerencias"></div>
+      <form id="formChat" class="compositor" autocomplete="off">
+        <textarea id="texto" rows="1" placeholder="Escribe tu consulta…" aria-label="Tu mensaje" maxlength="2000"></textarea>
+        <button type="submit" id="btnEnviar" aria-label="Enviar mensaje">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+    </div>
+  </section>
+</div>
+
+<script src="/static/app.js?v=7"></script>
+</body>
+</html>
